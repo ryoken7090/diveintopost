@@ -25,9 +25,9 @@ class AgendasController < ApplicationController
     if current_user.teams.include?(@agenda.team)
       @agenda.destroy
       DestroyAgendaMailer.destroy_agenda_mail(@agenda).deliver
-      redirect_to dashboard_url, notice:'アジェンダが削除されました'
+      redirect_to dashboard_url, notice: 'アジェンダが削除されました'
     else
-      redirect_to dashboard_url, notice:'他チームのアジェンダは削除できません'
+      redirect_to dashboard_url, notice: '他チームのアジェンダは削除できません'
     end
   end
 
