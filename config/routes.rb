@@ -10,9 +10,7 @@ Rails.application.routes.draw do
   resource :user
 
   resources :teams do
-    collection do
-      get :owner_change
-    end
+      patch 'change_owner', on: :member
     resources :assigns, only: %w(create destroy)
     resources :agendas, shallow: true do
       resources :articles do
