@@ -44,10 +44,14 @@ class TeamsController < ApplicationController
   end
 
   def change_owner
-    @assign = Assign.find(params[:assign_id])
-    @team.update(owner_id: @assign.user.id)
-    ChangeOwnerMailer.change_owner_mail(@team, @assign.user).deliver
-    redirect_to @team, notice: "権限を移動しました"
+    if current_user == @team.owner
+      @assign = Assign.find(params[:assign_id])
+      @team.update(owner_id: @assign.user.id)
+      ChangeOwnerMailer.change_owner_mail(@team, @assign.user).deliver
+      redirect_to @team, notice: "権限を移動しました"
+    else
+      render :show
+    end
   end
 
   def dashboard
